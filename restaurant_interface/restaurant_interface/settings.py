@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-u#a76)$(7_ro+$r%n(lt1y3i=d=)a_p(xvs3+fibqv%di5(4ng
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -120,7 +120,7 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
-ALLOWED_HOSTS = ['assignment-2uen.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
