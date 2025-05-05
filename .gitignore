@@ -1,0 +1,13 @@
+/venv
+
+# Django migrations
+*/migrations/
+!*/migrations/__init__.py
+
+# Database
+*.sqlite3
+*.db
+
+# Media files
+media/
+uploads/

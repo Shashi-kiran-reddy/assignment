@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Dashboard</title>
+    <style>
+        table, th, td {
+            border: 1px solid black; border-collapse: collapse; padding: 8px;
+        }
+        table { width: 100%; margin-top: 20px; }
+        .btn { margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Upload File</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="upload">Upload</button>
+    </form>
+
+    <h2>Uploaded Files</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Uploaded At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in files %}
+            <tr>
+                <td>{{ file.file.name }}</td>
+                <td>{{ file.uploaded_at }}</td>
+                <td>
+                    <form method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="file_id" value="{{ file.id }}">
+                        <button type="submit" name="display">Display</button>
+                    </form>
+                    <form method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="file_id" value="{{ file.id }}">
+                        <button type="submit" name="download">Download</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if data %}
+        <h2>File Data</h2>
+        <div style="overflow-x: auto;">{{ data|safe }}</div>
+    {% endif %}
+
+    <hr>
+    <h2>Filtered Download/Delete Section</h2>
+    <form method="post">
+        {% csrf_token %}
+        Date (YYYY-MM-DD): <input type="text" name="date">
+        Restaurant Name: <input type="text" name="restaurant">
+        <button type="submit" name="filtered_download">Download Filtered</button>
+        <button type="submit" name="delete">Delete Filtered</button>
+    </form>
+
+    <hr>
+    <h2>Email Summary</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="email">Email Datewise Summary (last file)</button>
+    </form>
+
+    {% if summary %}
+        <h3>Summary Result:</h3>
+        <pre>{{ summary }}</pre>
+    {% endif %}
+</body>
+</html>
